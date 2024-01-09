@@ -2,14 +2,14 @@ const { User } = require('../models/');
 const { passwordsMatch, emailUnique } = require('../validations/user-create');
 
 const createUser = async (data) => {
-  const user = User.build(req.body);
+  const user = User.build(data);
 
   await user.validate();
 
-  const { password, conf_password } = req.body;
+  const { password, conf_password } = data;
   passwordsMatch(password, conf_password);
 
-  const email = req.body.email || "";
+  const email = data.email || "";
   emailUnique(email);
 
   await user.save();

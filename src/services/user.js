@@ -10,7 +10,7 @@ const createUser = async (data) => {
   passwordsMatch(password, conf_password);
 
   const email = data.email || "";
-  emailUnique(email);
+  await emailUnique(email);
 
   await user.save();
   return user;

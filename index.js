@@ -7,6 +7,9 @@ const logger = require('./config/logger');
 
 app.use(express.json());
 
+app.use('/user', require('./routes/users'));
+app.use('/profiles', require('./routes/profiles'));
+
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });
 })

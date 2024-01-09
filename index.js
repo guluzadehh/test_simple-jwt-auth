@@ -3,7 +3,7 @@ require('express-async-errors');
 require('dotenv').config();
 
 const app = express();
-const logger = require('./helpers/logger');
+const logger = require('./config/logger');
 
 app.use(express.json());
 

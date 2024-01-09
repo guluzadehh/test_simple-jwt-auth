@@ -1,8 +1,12 @@
 const userServices = require('../services/user');
+const authServices = require('../services/auth');
 
 const login = async (req, res, next) => {
-  console.log("Login");
-  res.send();
+  const token = await authServices.authorize(req.body);
+  res.json({
+    message: "Logged in successfully",
+    token
+  });
 };
 
 const register = async (req, res) => {

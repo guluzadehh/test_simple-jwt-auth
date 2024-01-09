@@ -10,7 +10,7 @@ function convertToAPIError(err) {
     return new errors.ValidationError(details)
   }
 
-  logger.error(err.message)
+  logger.error(err);
 
   return new errors.InternalError()
 }

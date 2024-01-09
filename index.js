@@ -16,7 +16,10 @@ app.use((req, res) => {
 
 app.use(require('./middlewares/errorHandler'));
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  logger.info(`Server is listening on port ${PORT}`);
+const db = require('./models');
+db.sequelize.sync().then(() => {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    logger.info(`Server is listening on port ${PORT}`);
+  })
 })

@@ -18,7 +18,8 @@ const register = [
   },
 
   async (req, res, next) => {
-    const user = await User.findOne({ where: { email: req.body.email } });
+    const email = req.body.email || "";
+    const user = await User.findOne({ where: { email } });
     if (user) throw new errors.ConflictError('Email is already taken');
     next();
   },

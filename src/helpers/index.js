@@ -1,4 +1,4 @@
-const errors = require('../errors')
+const errors = require('../utils/errors')
 const logger = require('../config/logger')
 
 function convertToAPIError(err) {

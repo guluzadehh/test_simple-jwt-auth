@@ -1,4 +1,4 @@
-const { APIError } = require('../errors')
+const { APIError } = require('../utils/errors')
 const { convertToAPIError } = require('../helpers')
 
 module.exports = (err, req, res, next) => {

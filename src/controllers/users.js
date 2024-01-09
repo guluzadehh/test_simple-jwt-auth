@@ -1,5 +1,5 @@
 const { User } = require('../models/')
-const errors = require('../errors')
+const errors = require('../utils/errors')
 
 const login = async (req, res, next) => {
   console.log("Login");

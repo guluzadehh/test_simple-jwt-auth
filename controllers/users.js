@@ -6,31 +6,24 @@ const login = async (req, res, next) => {
   res.send();
 };
 
-const register = [
-  (req, res, next) => {
-    const { password, conf_password } = req.body;
+const register = async (req, res) => {
+  const user = User.build(req.body);
+  await user.validate();
 
-    if (password !== conf_password) {
-      throw new errors.ValidationError({ conf_password: "Passwords do not match." });
-    }
+  const { password, conf_password } = req.body;
 
-    next();
-  },
-
-  async (req, res, next) => {
-    const email = req.body.email || "";
-    const user = await User.findOne({ where: { email } });
-    if (user) throw new errors.ConflictError('Email is already taken');
-    next();
-  },
-
-  // image check
-
-  async (req, res) => {
-    const user = await User.create(req.body);
-    return res.json(user.toJSON());
+  if (password !== conf_password) {
+    throw new errors.ValidationError({ conf_password: "Passwords do not match." });
   }
-]
+
+  const email = req.body.email || "";
+  const exists = await User.findOne({ where: { email } });
+  if (exists) throw new errors.ConflictError('Email is already taken');
+
+  user.save();
+  return res.json(user.toJSON());
+}
+
 
 module.exports = {
   login, register

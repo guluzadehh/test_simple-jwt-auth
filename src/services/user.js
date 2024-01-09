@@ -26,6 +26,16 @@ const fetchUserById = async (id) => {
   return user;
 }
 
+const updateUser = async (id, data) => {
+  const user = await fetchUserById(id);
+
+  await user.update(data, {
+    fields: ['first_name', 'last_name', 'email', 'gender', 'photo']
+  });
+
+  return user;
+}
+
 module.exports = {
-  createUser, listUsers, fetchUserById
+  createUser, listUsers, fetchUserById, updateUser
 }

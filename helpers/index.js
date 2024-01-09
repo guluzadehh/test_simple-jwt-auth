@@ -1,5 +1,5 @@
 const errors = require('../errors')
-const logger = require('../config/logger')
+const logger = require('./logger')
 
 function convertToAPIError(err) {
   if (err.name === 'SequelizeValidationError') {

@@ -3,7 +3,8 @@ const winston = require('winston')
 const format = winston.format
 
 const myFormat = format.printf(({ timestamp, level, message, stack }) => {
-  return `[${timestamp}] ${level}: ${message}\n${stack + "\n" || ''}`
+  stack = stack ? (stack + "\n") : '';
+  return `[${timestamp}] ${level}: ${message}\n${stack}`
 })
 
 const logger = winston.createLogger({

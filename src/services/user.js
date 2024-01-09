@@ -16,6 +16,16 @@ const createUser = async (data) => {
   return user;
 }
 
+const listUsers = async () => {
+  const users = await User.findAll({ order: [['createdAt', 'DESC']] });
+  return users;
+}
+
+const fetchUserById = async (id) => {
+  const user = await User.findOne({ where: { id } });
+  return user;
+}
+
 module.exports = {
-  createUser
+  createUser, listUsers, fetchUserById
 }

@@ -3,6 +3,7 @@ require('express-async-errors');
 require('dotenv').config();
 
 const app = express();
+const logger = require('./config/logger');
 
 app.use(express.json());
 
@@ -12,5 +13,5 @@ app.use((req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  // log
+  logger.info(`Server is listenin on port ${PORT}`);
 })

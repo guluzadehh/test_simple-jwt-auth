@@ -39,6 +39,9 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isEmail: {
           msg: "Wrong email format"
+        },
+        notNull: {
+          msg: "Email can't be empty",
         }
       }
     },
@@ -53,6 +56,9 @@ module.exports = (sequelize, DataTypes) => {
         len: {
           args: [8, 50],
           msg: 'Password must be min. 8 characters and max. 50 characters'
+        },
+        notNull: {
+          msg: "Password can't be empty",
         }
       }
     }

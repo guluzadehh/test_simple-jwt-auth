@@ -3,7 +3,11 @@ const bcrypt = require('bcrypt')
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-
+    toJSON() {
+      const values = { ...this.dataValues, full_name: this.fullname }
+      delete values.password
+      return values
+    }
   }
 
   User.init({

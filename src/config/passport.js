@@ -5,7 +5,7 @@ const { fetchUserById } = require('../services/user');
 
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.JWT_SECRET
+  secretOrKey: process.env.JWT_SECRET || "secret key"
 };
 
 module.exports = passport => {

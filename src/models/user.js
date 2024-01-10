@@ -3,10 +3,18 @@ const bcrypt = require('bcrypt')
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
+    get fullname() {
+      return this.first_name + (this.last_name ? ' ' + this.last_name : '');
+    }
+
     toJSON() {
-      const values = { ...this.dataValues, full_name: this.fullname }
-      delete values.password
-      return values
+      const values = { ...this.dataValues, full_name: this.fullname };
+      delete values.password;
+      if (values.photo != null) {
+        const photo = values.photo.split('/');
+        values.photo = `/public/${photo[photo.length - 1]}`;
+      }
+      return values;
     }
   }
 
@@ -61,11 +69,11 @@ module.exports = (sequelize, DataTypes) => {
           msg: "Password can't be empty",
         }
       }
+    },
+    photo: {
+      type: DataTypes.STRING,
+      allowNull: true,
     }
-    // photo: {
-    //   type: DataTypes.STRING,
-    //   allowNull: true,
-    // }
   }, {
     sequelize,
     modelName: 'User',

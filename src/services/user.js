@@ -1,6 +1,7 @@
 const { User } = require('../models/');
 const { saveImage, generateImageName } = require('../utils');
 const { passwordsMatch, emailUnique } = require('../validations/user-create');
+const sizeOf = require('image-size');
 
 const createUser = async (req) => {
   const user = User.build(req.body);
@@ -13,9 +14,8 @@ const createUser = async (req) => {
   const email = req.body.email || "";
   await emailUnique(email);
 
-  const originalName = req.file?.originalname;
-  if (originalName != null) {
-    const photo = saveImage(generateImageName(originalName), req.file?.buffer);
+  if (imageValid(req.file)) {
+    const photo = saveImage(generateImageName(req.file.originalname), req.file.buffer);
     user.photo = photo;
   }
 
@@ -44,9 +44,8 @@ const updateUser = async (req) => {
 
   const data = { ...req.body };
 
-  const originalName = req.file?.originalname;
-  if (originalName != null) {
-    const photo = saveImage(generateImageName(originalName), req.file?.buffer);
+  if (imageValid(req.file)) {
+    const photo = saveImage(generateImageName(req.file.originalname), req.file.buffer);
     data.photo = photo;
   }
 

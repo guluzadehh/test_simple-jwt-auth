@@ -29,6 +29,11 @@ const fetchUserById = async (id) => {
 const updateUser = async (id, data) => {
   const user = await fetchUserById(id);
 
+  const email = data.email || "";
+  if (user.email !== email) {
+    await emailUnique(email);
+  }
+
   await user.update(data, {
     fields: ['first_name', 'last_name', 'email', 'gender', 'photo']
   });

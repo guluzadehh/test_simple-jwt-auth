@@ -54,8 +54,13 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     gender: {
-      type: DataTypes.ENUM,
-      values: ["Male", "Female"],
+      type: DataTypes.STRING(6),
+      validate: {
+        isIn: {
+          args: ["Male", "Female"],
+          msg: "Wrong gender value.",
+        }
+      }
     },
     password: {
       type: DataTypes.STRING,

@@ -11,7 +11,7 @@ const detailUser = async (req, res, next) => {
 }
 
 const updateUser = async (req, res, next) => {
-  const user = await userServices.updateUser(req.params.id, req.body);
+  const user = await userServices.updateUser(req);
   res.json(user);
 }
 

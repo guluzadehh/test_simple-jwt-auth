@@ -10,7 +10,7 @@ const login = async (req, res, next) => {
 };
 
 const register = async (req, res) => {
-  const user = await userServices.createUser(req.body);
+  const user = await userServices.createUser(req);
   return res.json(user.toJSON());
 }
 

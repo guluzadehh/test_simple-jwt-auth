@@ -1,7 +1,7 @@
 const { User } = require('../models/');
 const { saveImage, generateImageName } = require('../utils');
+const { imageValid } = require('../validations/image-size');
 const { passwordsMatch, emailUnique } = require('../validations/user-create');
-const sizeOf = require('image-size');
 
 const createUser = async (req) => {
   const user = User.build(req.body);

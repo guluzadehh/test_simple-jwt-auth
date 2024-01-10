@@ -6,3 +6,7 @@ const imageValid = (file) => {
 
   return originalName != null && buffer != null && Buffer.byteLength(buffer) <= maxImageSize;
 }
+
+module.exports = {
+  imageValid
+}

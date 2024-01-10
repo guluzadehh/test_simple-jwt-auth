@@ -2,8 +2,13 @@ const express = require('express');
 require('express-async-errors');
 require('dotenv').config();
 
+const passport = require('passport');
+require('./config/passport')(passport);
+
 const app = express();
 const logger = require('./config/logger');
+
+app.use(passport.initialize());
 
 app.use(express.json());
 

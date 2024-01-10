@@ -1,18 +1,26 @@
 const { User } = require('../models/');
+const { saveImage, generateImageName } = require('../utils');
 const { passwordsMatch, emailUnique } = require('../validations/user-create');
 
-const createUser = async (data) => {
-  const user = User.build(data);
+const createUser = async (req) => {
+  const user = User.build(req.body);
 
   await user.validate();
 
-  const { password, conf_password } = data;
+  const { password, conf_password } = req.body;
   passwordsMatch(password, conf_password);
 
-  const email = data.email || "";
+  const email = req.body.email || "";
   await emailUnique(email);
 
+  const originalName = req.file?.originalname;
+  if (originalName != null) {
+    const photo = saveImage(generateImageName(originalName), req.file?.buffer);
+    user.photo = photo;
+  }
+
   await user.save();
+
   return user;
 }
 
@@ -26,12 +34,20 @@ const fetchUserById = async (id) => {
   return user;
 }
 
-const updateUser = async (id, data) => {
-  const user = await fetchUserById(id);
+const updateUser = async (req) => {
+  const user = await fetchUserById(req.params?.id);
 
-  const email = data.email || "";
+  const email = req.body.email || "";
   if (user.email !== email) {
     await emailUnique(email);
+  }
+
+  const data = { ...req.body };
+
+  const originalName = req.file?.originalname;
+  if (originalName != null) {
+    const photo = saveImage(generateImageName(originalName), req.file?.buffer);
+    data.photo = photo;
   }
 
   await user.update(data, {

@@ -1,5 +1,5 @@
 const { APIError } = require('../utils/errors')
-const { convertToAPIError } = require('../helpers')
+const { convertToAPIError } = require('../utils')
 
 module.exports = (err, req, res, next) => {
   if (!(err instanceof APIError)) {

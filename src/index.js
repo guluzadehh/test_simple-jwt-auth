@@ -8,9 +8,9 @@ require('./config/passport')(passport);
 const app = express();
 const logger = require('./config/logger');
 
-app.use(passport.initialize());
-
 app.use(express.json());
+
+app.use(passport.initialize());
 
 app.use('/user', require('./routes/users'));
 app.use('/profiles', require('./routes/profiles'));

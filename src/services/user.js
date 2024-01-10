@@ -24,8 +24,11 @@ const createUser = async (req) => {
   return user;
 }
 
-const listUsers = async () => {
-  const users = await User.findAll({ order: [['createdAt', 'DESC']] });
+const listUsers = async (start, limit) => {
+  if (start == null) start = 1;
+  if (limit == null) limit = 10;
+
+  const users = await User.findAll({ order: [['createdAt', 'DESC']], offset: start - 1, limit: limit - start + 1 });
   return users;
 }
 

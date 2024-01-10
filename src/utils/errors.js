@@ -41,6 +41,14 @@ class AuthorizationError extends APIError {
   }
 }
 
+class PermissionError extends APIError {
+  name = 'PermissionError'
+
+  constructor(message) {
+    super(message, 403)
+  }
+}
+
 module.exports = {
-  APIError, ValidationError, InternalError, ConflictError, AuthorizationError
+  APIError, ValidationError, InternalError, ConflictError, AuthorizationError, PermissionError
 }
